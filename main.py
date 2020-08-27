@@ -16,5 +16,6 @@ while True:
     if battery <= 24:
         snapchot = ImageGrab.grab()
         snapchot.save("/Users/hk/Desktop/screenshot.png")
-        os.system("shutdown -h now")
+        subprocess.call(['osascript', '-e',
+                         'tell app "System Events" to shut down'])
 
