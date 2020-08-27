@@ -1,4 +1,3 @@
-import os
 import subprocess
 import time
 
@@ -13,9 +12,9 @@ time.sleep(2)
 while True:
     browser.find_element_by_id("bigCookie").click()
     battery = int(subprocess.getoutput("pmset -g batt").split("%")[0].split(" ")[6].split("\t")[1])
-    if battery <= 25:
+    if battery <= 10:
         snapchot = ImageGrab.grab()
         snapchot.save("/Users/hk/Desktop/screenshot.png")
-        subprocess.call(['osascript', '-e',
-                         'tell app "System Events" to shut down'])
+        subprocess.run(["say", "Computeren er under 25 procent strøm og vil slukke om 10 sekunder..."])
+        time.sleep(10)
 
