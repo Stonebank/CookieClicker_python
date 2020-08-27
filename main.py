@@ -13,7 +13,7 @@ time.sleep(2)
 while True:
     browser.find_element_by_id("bigCookie").click()
     battery = int(subprocess.getoutput("pmset -g batt").split("%")[0].split(" ")[6].split("\t")[1])
-    if battery <= 24:
+    if battery <= 25:
         snapchot = ImageGrab.grab()
         snapchot.save("/Users/hk/Desktop/screenshot.png")
         subprocess.call(['osascript', '-e',
