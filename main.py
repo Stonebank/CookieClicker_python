@@ -4,17 +4,21 @@ import time
 from PIL import ImageGrab
 from selenium import webdriver
 
+shutting_down = False
+
 browser = webdriver.Safari()
 browser.maximize_window()
 browser.get("https://orteil.dashnet.org/cookieclicker/")
 time.sleep(2)
 
-while True:
+while not shutting_down:
     browser.find_element_by_id("bigCookie").click()
     battery = int(subprocess.getoutput("pmset -g batt").split("%")[0].split(" ")[6].split("\t")[1])
-    if battery <= 10:
-        snapchot = ImageGrab.grab()
-        snapchot.save("/Users/hk/Desktop/screenshot.png")
-        subprocess.run(["say", "Computeren er under 25 procent strøm og vil slukke om 10 sekunder..."])
-        time.sleep(10)
+    if battery <= 60:
+        screenshot = ImageGrab.grab()
+        screenshot.save("/Users/hk/Desktop/screenshot.png")
+        subprocess.run(["say", "Bomben er blevet plantet, den vil springe om 40 sekunder."])
+        subprocess.call(['osascript', '-e',
+                         'tell app "System Events" to shut down'])
+        shutting_down = True
 
